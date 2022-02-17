@@ -1,18 +1,26 @@
-
  [
   {
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-            "awslogs-group": "ecs-demo",
+            "awslogs-group": "dev-terraform",
             "awslogs-region": "ap-south-1",
-            "awslogs-create-group": "false",
+            "awslogs-create-group": "true",
             "awslogs-stream-prefix": "firelens"
         }       
     },
+    "secrets": [
+      {
+        "name": "DATABASE_PASSWORD",
+        "valueFrom": "arn:aws:ssm:ap-south-1:974267696219:parameter/test-app/dev"
+      }
+    ],
+    "command": [
+      "printenv"
+   ],
     "cpu": 10,
     "environment": [
-      {"name": "VARNAME", "value": "VARVAL"}
+      {"name": "VARNAME", "value": "VARVALUE"}
     ],
     "essential": true,
     "image": "nginx",
